@@ -3,9 +3,39 @@
 
 #include <iostream>
 
+
 int main()
 {
+    //Prints out "hello world"
     std::cout << "Hello World!\n";
+
+    //Integers for the second part of the Practice Exercise...
+    //Letter 'A'
+    const int DecemberDays = 31;
+    const int secondsInMinute = 60;
+    const int minutesInHour = 60;
+    const int hoursInDay = 24;
+    int decemberSeconds = ((secondsInMinute * minutesInHour) * hoursInDay) * DecemberDays;
+    //print out the answer
+    std::cout << "The number of seconds in December is..." << decemberSeconds << std::endl;
+
+    //Letter 'B'
+    double radius = 6.2;
+    double pi = 3.14;
+    double area = pi * (radius * radius);
+    double finalAnswer = round(area*10)/10;
+    //print out the answer
+    std::cout << finalAnswer << std::endl;
+
+    //Letter 'C'
+    int a = 5;
+    int b = 6;
+    double divisionAnswer = (a / b);
+    //print out the answer
+    std::cout << divisionAnswer << std::endl;
+    //Explaining 'C'
+    //If you try to divide two integers, it does not produce a double, but it truncates. The answer would have been .833; it it was rounded,
+    //if would have been 1, but the final answer ended up being 0. 
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
