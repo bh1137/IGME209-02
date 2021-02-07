@@ -15,6 +15,7 @@ int main()
     //incorrectly guessed letters
     char incorrectLetters[30];
 
+    //Opening to the game 
     cout << "Let's play a game of Hangman!\n";
     cout << "Your word has ";
 }
