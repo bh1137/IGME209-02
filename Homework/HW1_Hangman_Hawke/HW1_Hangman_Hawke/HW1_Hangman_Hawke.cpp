@@ -2,10 +2,21 @@
 //
 
 #include <iostream>
+using namespace std;
+#include "functions.h" //link header to the main .ccp
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    //declare strings for game 
+    //word-to-be-guessed
+    char word[20];
+    //correctly guessed letters 
+    char correctLetters[20];
+    //incorrectly guessed letters
+    char incorrectLetters[30];
+
+    cout << "Let's play a game of Hangman!\n";
+    cout << "Your word has ";
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
