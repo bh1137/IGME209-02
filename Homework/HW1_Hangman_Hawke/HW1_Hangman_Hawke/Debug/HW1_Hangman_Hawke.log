@@ -1,2 +1,3 @@
 ﻿  HW1_Hangman_Hawke.cpp
-  HW1_Hangman_Hawke.vcxproj -> C:\Users\Brandon H\source\repos\bh1137\IGME209-02\Homework\HW1_Hangman_Hawke\Debug\HW1_Hangman_Hawke.exe
+C:\Users\Brandon H\Documents\GitHub\IGME209-02\Homework\HW1_Hangman_Hawke\HW1_Hangman_Hawke\HW1_Hangman_Hawke.cpp(67,27): warning C4018: '<': signed/unsigned mismatch
+  HW1_Hangman_Hawke.vcxproj -> C:\Users\Brandon H\Documents\GitHub\IGME209-02\Homework\HW1_Hangman_Hawke\Debug\HW1_Hangman_Hawke.exe

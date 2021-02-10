@@ -18,9 +18,12 @@
     <ClCompile Include="HW1_Hangman_Hawke.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="hangman.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="functions.h">
+    <ClInclude Include="hangman.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
