@@ -1,0 +1,4 @@
+﻿  PE5_Hawke.cpp
+C:\Users\Brandon H\Documents\GitHub\IGME209-02\PEs\PE5_Hawke\PE5_Hawke\PE5_Hawke.cpp(32,51): warning C4305: 'argument': truncation from 'int' to 'sf::Uint8'
+C:\Users\Brandon H\Documents\GitHub\IGME209-02\PEs\PE5_Hawke\PE5_Hawke\PE5_Hawke.cpp(32,39): warning C4309: 'argument': truncation of constant value
+  PE5_Hawke.vcxproj -> C:\Users\Brandon H\Documents\GitHub\IGME209-02\PEs\PE5_Hawke\Debug\PE5_Hawke.exe
