@@ -72,8 +72,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>Z:\IGMProfile\Documents\another one\IGME209-02\Homework\HW2_Gravity_Snake_Hawke\box2d86\box2d\class\include;$(IncludePath)</IncludePath>
-    <LibraryPath>Z:\IGMProfile\Documents\another one\IGME209-02\Homework\HW2_Gravity_Snake_Hawke\box2d86\box2d\class\Lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Brandon H\Documents\GitHub\IGME209-02\Homework\HW2_Gravity_Snake_Hawke\box2d86\box2d\class\include;Z:\IGMProfile\Documents\another one\IGME209-02\Homework\HW2_Gravity_Snake_Hawke\box2d86\box2d\class\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Brandon H\Documents\GitHub\IGME209-02\Homework\HW2_Gravity_Snake_Hawke\box2d86\box2d\class\lib;Z:\IGMProfile\Documents\another one\IGME209-02\Homework\HW2_Gravity_Snake_Hawke\box2d86\box2d\class\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

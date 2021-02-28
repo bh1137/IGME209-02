@@ -1,4 +1,4 @@
 ﻿  snake.cpp
-Z:\IGMProfile\Documents\another one\IGME209-02\Homework\HW2_Gravity_Snake_Hawke\HW2_Gravity_Snake_Hawke\snake.cpp(57,54): warning C4244: 'argument': conversion from 'int' to 'float32', possible loss of data
-Z:\IGMProfile\Documents\another one\IGME209-02\Homework\HW2_Gravity_Snake_Hawke\HW2_Gravity_Snake_Hawke\snake.cpp(57,36): warning C4244: 'argument': conversion from 'int' to 'float32', possible loss of data
-  HW2_Gravity_Snake_Hawke.vcxproj -> Z:\IGMProfile\Documents\another one\IGME209-02\Homework\HW2_Gravity_Snake_Hawke\Debug\HW2_Gravity_Snake_Hawke.exe
+C:\Users\Brandon H\Documents\GitHub\IGME209-02\Homework\HW2_Gravity_Snake_Hawke\HW2_Gravity_Snake_Hawke\snake.cpp(126,54): warning C4244: 'argument': conversion from 'int' to 'float32', possible loss of data
+C:\Users\Brandon H\Documents\GitHub\IGME209-02\Homework\HW2_Gravity_Snake_Hawke\HW2_Gravity_Snake_Hawke\snake.cpp(126,36): warning C4244: 'argument': conversion from 'int' to 'float32', possible loss of data
+  HW2_Gravity_Snake_Hawke.vcxproj -> C:\Users\Brandon H\Documents\GitHub\IGME209-02\Homework\HW2_Gravity_Snake_Hawke\Debug\HW2_Gravity_Snake_Hawke.exe
