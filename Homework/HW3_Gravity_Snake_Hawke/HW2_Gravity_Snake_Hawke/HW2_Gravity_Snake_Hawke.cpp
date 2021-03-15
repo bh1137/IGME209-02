@@ -5,10 +5,7 @@
 #include <Box2D/Box2D.h> //Added Box2D
 #include "snake.h"
 
-//for SFML
-#define SFML_STATIC
-#include<SFML\Window.hpp>
-#include<SFML\Graphics.hpp>
+
 
 
 

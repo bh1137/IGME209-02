@@ -5,18 +5,27 @@
 #include "conio.h"	//for the keyboard input
 using namespace std; // no redundant stds
 
+//for SFML
+#define SFML_STATIC
+#include<SFML\Window.hpp>
+#include<SFML\Graphics.hpp>
+
 //Fields 
 int objectsHit = 0;
 bool IsTargetHit = false; 
 bool IsEscHit = false;
+char targetNum[2];
+b2Vec2* TargetLocations[];
+b2Vec2 currentLocation;
 
 //snake and target 
 b2BodyDef snake;
+b2Body* snakeBody;
 b2BodyDef target;
 
 //declare the gravity and build the world 
 //gravity
-b2Vec2 gravity(0.0f, -1.0f);
+b2Vec2 gravity(0.0f, -5.0f);
 //world with gravity
 b2World world(gravity);
 
@@ -44,6 +53,7 @@ void moveTarget(float& xPos, float& yPos, b2Vec2 targetPosition)
 	targetPosition.Set(targetPosition.x, targetPosition.y);
 
 }
+
 int randomPosition()
 {
 	//random number generator for target
@@ -68,58 +78,149 @@ void display(b2Vec2 snakePosition, b2Vec2 targetPosition)
 	
 }
 
-void applyForces(b2Body* snake)
+//Keyboard input 
+void processInput()
 {
-	//keyboard hits
-	if (_kbhit())
-	{
-		int ch = _getch();
+	//typedef
+	ApplyForces W;
+	ApplyForces A;
+	ApplyForces S;
+	ApplyForces D;
+	ApplyForces Q;
 
-		//W --> UP
-		if (ch == 119)
-		{
-			b2Vec2 oldPosition = snake->GetPosition();
-			snake->ApplyForceToCenter(b2Vec2(oldPosition.x,(oldPosition.y + 3000)), true);
-		}
-		//A --> LEFT
-		else if (ch == 97)
-		{
-			b2Vec2 oldPosition = snake->GetPosition();
-			snake->ApplyForceToCenter(b2Vec2((oldPosition.x - 550), oldPosition.y), true);
-			
-		}
-		//S --> DOWN 
-		else if (ch == 115)
-		{
-			b2Vec2 oldPosition = snake->GetPosition();
-			snake->ApplyForceToCenter(b2Vec2(oldPosition.x, (oldPosition.y - 550)), true);
-		}
-		//D --> RIGHT
-		else if (ch == 100)
-		{
-			b2Vec2 oldPosition = snake->GetPosition();
-			snake->ApplyForceToCenter(b2Vec2((oldPosition.x + 550), oldPosition.y), true);
-		}
-		// ESC --> QUIT
-		else if (ch == 27)
-		{
-			cout << "Good Bye" << endl;
-			IsEscHit = true;
-		}
-		
+	W = &ApplyForceUp;
+	A = &ApplyForceLeft;
+	S = &ApplyForceDown;
+	D = &ApplyForceRight;
+	Q = &StopMoving;
+
+	//W --> UP
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
+		(*W)(*snakeBody);
+	}
+	//A --> LEFT
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		(*A)(*snakeBody);
+	}
+	//S --> DOWN 
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{
+		(*S)(*snakeBody);
+	}
+	//D --> RIGHT
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		(*D)(*snakeBody);
+	}
+	//Q --> STOP MOVING 
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+	{
+		(*Q)(*snakeBody);
+	}
+	//Z --> REVERSE GRAVITY
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+	{
+		ReverseGravity(world);
+	}
+	//ESC --> QUIT
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+	{
+		cout << "Good Bye" << endl;
+		IsEscHit = true;
 	}
 }
 
+//moves the player
+void ApplyForceUp(b2Body& player)
+{
+	b2Vec2 oldPosition = player.GetPosition();
+	player.ApplyForceToCenter(b2Vec2(oldPosition.x, (oldPosition.y += 2.0)), true);
+}
+
+void ApplyForceDown(b2Body& player)
+{
+	b2Vec2 oldPosition = player.GetPosition();
+	player.ApplyForceToCenter(b2Vec2(oldPosition.x, (oldPosition.y -= 2.0)), true);
+}
+
+void ApplyForceLeft(b2Body& player)
+{
+	b2Vec2 oldPosition = player.GetPosition();
+	player.ApplyForceToCenter(b2Vec2((oldPosition.x -= 2.0), oldPosition.y), true);
+}
+
+void ApplyForceRight(b2Body& player)
+{
+	b2Vec2 oldPosition = player.GetPosition();
+	player.ApplyForceToCenter(b2Vec2((oldPosition.x += 2.0), oldPosition.y), true);
+}
+
+void StopMoving(b2Body& player)
+{
+	b2Vec2 newVel(0,0);
+	player.SetLinearVelocity(newVel);
+}
+
+void ReverseGravity(b2World& world)
+{
+	world.SetGravity(-gravity);
+}
+
+void setupTarget(int cnt)
+{
+	const int targNum = cnt + 1;
+	//new array
+	TargetLocations[targNum];
+
+	//set up the coordinates 
+	currentLocation.x = TargetLocations[0]->x;
+	currentLocation.y = TargetLocations[0]->y;
+}
+
+bool selectNextTarget(int counter)
+{	
+	//if statement for bool 
+	if (TargetLocations[counter] == NULL)
+	{
+		return false;
+	}
+	else
+	{
+		//set up coordinates 
+		currentLocation.x = TargetLocations[counter]->x;
+		currentLocation.y = TargetLocations[counter]->y;
+	}
+}
 int main()
 {
 	//introduce the player to the game 
 	cout << "Welcome! Let's play Gravity Snake!" << endl;
 	cout << "To control the snake, use the WASD keys!" << endl;
+	cout << "How many targets would you like (1-10)?  ";
+	cin.getline(targetNum, 2);
+	cout << endl;
 
+	//if it is digit
+	if (!isdigit(targetNum[0]))
+	{
+		IsEscHit = true;
+		cout << "That is not a valid number, try again.";
+	}
+	
+	//is it less than 1 or greater than 10?
+	if (targetNum[0] < 1 || targetNum[0] > 10)
+	{
+		IsEscHit = true;
+		cout << "That is not a valid number, try again.";
+	}
+		
+	
 	//implement the snake	
 	snake.type = b2_dynamicBody;
 	snake.position.Set(4.0f, 5.0f);
-	b2Body* snakeBody = world.CreateBody(&snake);
+	snakeBody = world.CreateBody(&snake);
 
 	//implement target	
 	target.type = b2_staticBody;
@@ -130,7 +231,10 @@ int main()
 	b2Vec2 targetPosition = targetBody->GetPosition();
 
 	//continous loop
-	while (objectsHit != 2)
+	sf::RenderWindow window(sf::VideoMode(600, 400), "Brandon Hawke window");
+
+	// run the program as long as the window is open
+	while (window.isOpen() && objectsHit != 2)
 	{
 		//ends the game if esc is pressed
 		if (IsEscHit)
@@ -140,14 +244,14 @@ int main()
 
 		//snake position
 		b2Vec2 snakePosition = snakeBody->GetPosition();
-		
+
 
 		//update world 
 		update();
 
 		//kb detection
-		applyForces(snakeBody);
-					
+		processInput();
+
 
 		//display it
 		display(snakePosition, targetPosition);
@@ -166,17 +270,42 @@ int main()
 			display(snakePosition, targetPosition);
 
 			//set new position for target 
-			moveTarget(targetPosition.x, targetPosition.y, targetPosition); 
+			moveTarget(targetPosition.x, targetPosition.y, targetPosition);
 
-			
+
 			//set plus 1
 			objectsHit++;
 
 			//set back to false
 			IsTargetHit = false;
 		}
+
+		// check all the window's events that were triggered since the last iteration of the loop
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			// "close requested" event: we close the window
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
+
+		//screen color
+		window.clear(sf::Color::Black);
+
+		//shapes   		
+		//square
+		sf::CircleShape square(50.f, 4);
+		square.setFillColor(sf::Color(65, 59, 103));
+		square.move(snakePosition.x, snakePosition.y);
+		square.rotate(45);
+		square.scale(.50, .50);
+		window.draw(square);			
+
+
+		window.display();
 	}
+
+	return 0;
 }
-	
 	
 	
