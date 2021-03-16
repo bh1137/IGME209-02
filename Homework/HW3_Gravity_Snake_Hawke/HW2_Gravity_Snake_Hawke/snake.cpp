@@ -14,14 +14,12 @@ using namespace std; // no redundant stds
 int objectsHit = 0;
 bool IsTargetHit = false; 
 bool IsEscHit = false;
-char targetNum[2];
-b2Vec2* TargetLocations[];
-b2Vec2 currentLocation;
 
 //snake and target 
 b2BodyDef snake;
 b2Body* snakeBody;
 b2BodyDef target;
+b2Body* targetBody;
 
 //declare the gravity and build the world 
 //gravity
@@ -34,6 +32,8 @@ float timeStep = 1.0f / 1000.0f;
 int32 velocityIterations = 6;
 int32 positionIterations = 2;
 
+b2Vec2* TargetLocations;
+b2Vec2 currentLocation;
 
 //Functions
 void update()
@@ -67,12 +67,12 @@ void display(b2Vec2 snakePosition, b2Vec2 targetPosition)
 	if (IsTargetHit)
 	{
 		//display message
-		printf("Target: %.2f, %.2f --> Snake: %.2f, %.2f (Hit Target)", targetPosition.x, targetPosition.y, snakePosition.x, snakePosition.y);		
+		printf("Target: %.2f, %.2f --> Snake: %.2f, %.2f (Hit Target)", targetPosition.x, targetPosition.y, snakePosition.x, -snakePosition.y);		
 		cout << "\n";				
 	}
 	else
 	{
-		printf("Target: %.2f, %.2f --> Snake: %.2f, %.2f", targetPosition.x, targetPosition.y, snakePosition.x, snakePosition.y);
+		printf("Target: %.2f, %.2f --> Snake: %.2f, %.2f", targetPosition.x, targetPosition.y, snakePosition.x, -snakePosition.y);
 		cout << "\n";
 	}
 	
@@ -172,25 +172,25 @@ void setupTarget(int cnt)
 {
 	const int targNum = cnt + 1;
 	//new array
-	TargetLocations[targNum];
+	
 
 	//set up the coordinates 
-	currentLocation.x = TargetLocations[0]->x;
-	currentLocation.y = TargetLocations[0]->y;
+	currentLocation.x = TargetLocations->x;
+	currentLocation.y = TargetLocations->y;
 }
 
 bool selectNextTarget(int counter)
 {	
 	//if statement for bool 
-	if (TargetLocations[counter] == NULL)
+	if (TargetLocations == NULL)
 	{
 		return false;
 	}
 	else
 	{
 		//set up coordinates 
-		currentLocation.x = TargetLocations[counter]->x;
-		currentLocation.y = TargetLocations[counter]->y;
+		currentLocation.x = TargetLocations->x;
+		currentLocation.y = TargetLocations->y;
 	}
 }
 int main()
@@ -199,18 +199,14 @@ int main()
 	cout << "Welcome! Let's play Gravity Snake!" << endl;
 	cout << "To control the snake, use the WASD keys!" << endl;
 	cout << "How many targets would you like (1-10)?  ";
-	cin.getline(targetNum, 2);
+	int numberOfTargets = 0;
+	cin >> numberOfTargets;
 	cout << endl;
-
-	//if it is digit
-	if (!isdigit(targetNum[0]))
-	{
-		IsEscHit = true;
-		cout << "That is not a valid number, try again.";
-	}
+	
+	
 	
 	//is it less than 1 or greater than 10?
-	if (targetNum[0] < 1 || targetNum[0] > 10)
+	if (numberOfTargets <= 0 || numberOfTargets > 10)
 	{
 		IsEscHit = true;
 		cout << "That is not a valid number, try again.";
@@ -225,7 +221,7 @@ int main()
 	//implement target	
 	target.type = b2_staticBody;
 	target.position.Set(randomPosition(), randomPosition());
-	b2Body* targetBody = world.CreateBody(&target);
+	targetBody = world.CreateBody(&target);
 	
 	//target position (do it before the loop)
 	b2Vec2 targetPosition = targetBody->GetPosition();
@@ -234,7 +230,7 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(600, 400), "Brandon Hawke window");
 
 	// run the program as long as the window is open
-	while (window.isOpen() && objectsHit != 2)
+	while (window.isOpen() && objectsHit != numberOfTargets)
 	{
 		//ends the game if esc is pressed
 		if (IsEscHit)
@@ -292,16 +288,21 @@ int main()
 		//screen color
 		window.clear(sf::Color::Black);
 
-		//shapes   		
+		//shapes   				
+		//circle
+		sf::CircleShape circle(50,50);
+		circle.setFillColor(sf::Color(25, 59, 103));
+		circle.move(snakePosition.x, snakePosition.y);
+		circle.scale(.25, .25);
+		window.draw(circle);
+
 		//square
 		sf::CircleShape square(50.f, 4);
 		square.setFillColor(sf::Color(65, 59, 103));
-		square.move(snakePosition.x, snakePosition.y);
+		square.move(targetPosition.x, targetPosition.y);
 		square.rotate(45);
 		square.scale(.50, .50);
-		window.draw(square);			
-
-
+		window.draw(square);
 		window.display();
 	}
 
