@@ -33,8 +33,7 @@ Fighter:: ~Fighter()
 	cout << "Destroying Fighter Object" << endl; 
 }
 
-//override the attack function 
-void Attack(Player* player)
-{
-	///ass stuff here
+void Fighter::Attack(Player* player)
+{	
+	cout << this->GetName() << " attacks " << player->GetName() << " with a weapon!" << endl;
 }

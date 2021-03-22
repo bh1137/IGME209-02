@@ -6,6 +6,11 @@
 #include "Fighter.h"
 using namespace std;
 
+//for memory leaks testing
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
 int main()
 {
     ///~~~~~~~~~~~~~~ PART 1 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -60,15 +65,107 @@ int main()
 
     //delete heap objects 
     delete rukia;
+
+    ///~~~~~~~~~~~~~~ PART 3 ~~~~~~~~~~~~~~~~~~~~~~~~~
+    //making some space 
+    cout << endl;
+    cout << endl;
+    cout << "Random Anime Tournament..." << endl;
+    cout << endl;
+
+    //make ten 10 players (5 players 5 fighters) and put them in an array 
+    Player* battlers[10];
+
+    //int for while loop
+    int playersLeft = 10;
+
+
+    //make names array 
+    const char* battleNames[10] =
+    {
+        "Yoshikage Kira",
+        "Rukia Kuchiki",
+        "Levi Ackerman",
+        "Lalatina Dustiness Ford",
+        "Centorea Shianus",
+        "Stephanie Dola",
+        "Dio Brando",
+        "Reigen Arataka",
+        "Saiki Kusuo",
+        "Edelgard Von Hresvelg" 
+    };
+
+    //make loop for player generation
+    for (int i = 0; i < 10; i++)
+    {
+        //random generator 
+        int ranNumber = rand() & 1;
+        
+        //make a player
+        if (ranNumber == 0)
+        {
+            Player* player= new Player(battleNames[i], 50, 20, 69);
+
+            //add to array 
+            battlers[i] = player;
+        }
+        else if (ranNumber == 1)
+        {
+            Fighter* fighter = new Fighter(battleNames[i], 60, 35, 45, "Exorcism");
+
+            //add to array 
+            battlers[i] = fighter;
+        }
+    }
+
+    //make loop for player battle 
+    while (playersLeft != 1)
+    {        
+        //for battle, it will be random 
+        int randomAttacker = rand() % 10;
+        int randomVictim = rand() % 10;
+
+        // 1. check to see if battler is null 
+        if (battlers[randomAttacker] == nullptr)
+        {
+            //1A. Then reroll
+            randomAttacker = rand() % 10;
+        }
+        //IT IS NOT NULL 
+        else
+        {
+            //2. check to see if victim is null or same as the random attacker
+            if (battlers[randomVictim] == nullptr || randomVictim == randomAttacker)
+            {
+                //2B. Then reroll victim 
+                randomVictim = rand() % 10;
+            }
+            //IT IS ALSO NOT NULL
+            else
+            {
+                //engage battle
+                battlers[randomAttacker]->Attack(battlers[randomVictim]);
+
+                //victim becomes null
+                battlers[randomVictim] = nullptr;
+                
+                //subtract from players left 
+                playersLeft--;
+            }
+        }
+
+    }
+    
+    //finally make a loop that deletes all players
+    for (int i = 0; i < 10; i++)
+    {
+        if (battlers[i] != nullptr)
+        {
+            battlers[i] = nullptr;
+        }
+        delete battlers[i];
+    }
+    _CrtDumpMemoryLeaks(); //memory leak testing 
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file

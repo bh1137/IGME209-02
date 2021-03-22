@@ -8,7 +8,7 @@ public:
     Fighter(const char* name, int strength, int charisma, int intelligence, const char* weaponSkill);
     void printFighter();
     ~Fighter(); //destructor
-   // virtual void Attack(Player* player) override;
+    void Attack(Player* player) override;
 
 private:
     const char* weaponSkill;
