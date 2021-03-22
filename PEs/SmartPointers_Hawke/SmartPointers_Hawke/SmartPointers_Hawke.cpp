@@ -3,11 +3,35 @@
 
 #include <iostream>
 #include <memory> //for smart pointers
+#include "level.h"
 
+//for debug
+#define _CRTDBG_MAP_ALLOC
+#include <cstdlib>
+#include <crtdbg.h>
+using namespace std;
+
+//smart pointer function
+void SmartPointerFunction()
+{
+    shared_ptr<level> level5(new level());
+    
+}
+
+//normal pointer function 
+void NormalPointerFunction()
+{
+    level* level6 = new level();
+}
 int main()
 {
-    std::cout << "Hello World!\n";
+    //call smart
+    SmartPointerFunction();
+
+    //call normal
+    NormalPointerFunction();
     
+    _CrtDumpMemoryLeaks(); // debug
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
