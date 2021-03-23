@@ -146,7 +146,8 @@ int main()
                 //engage battle
                 battlers[randomAttacker]->Attack(battlers[randomVictim]);
 
-                //victim becomes null
+                //victim becomes deleted and then null
+                delete battlers[randomVictim];
                 battlers[randomVictim] = nullptr;
                 
                 //subtract from players left 
@@ -155,15 +156,17 @@ int main()
         }
 
     }
-    
+  
+
     //finally make a loop that deletes all players
     for (int i = 0; i < 10; i++)
     {
         if (battlers[i] != nullptr)
         {
+            delete battlers[i];
             battlers[i] = nullptr;
         }
-        delete battlers[i];
+        
     }
     _CrtDumpMemoryLeaks(); //memory leak testing 
 }
