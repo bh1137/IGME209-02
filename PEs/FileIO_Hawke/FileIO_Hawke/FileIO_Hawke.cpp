@@ -25,6 +25,9 @@ int main()
         outFile << "Ja'Crispy Vulcano\n";
         outFile << "Mary Beth BethBeth\n";
         outFile << "Detective Bluto Mindpretzel\n";
+        outFile << "Melt Gibsont\n";
+        outFile << "High Priestess Gabagool\n";
+        outFile << "Holden Afart\n";
 
         //close
         outFile.close();
@@ -36,12 +39,24 @@ int main()
 
     if (inFile.is_open())
     {
-        //read lines
-        while (getline(inFile, line))
-        {
-            cout << line << endl;
-        }
+        //length
+        inFile.seekg(0, ios::end);
+        int length = (int)inFile.tellg();
+        inFile.seekg(0, ios::beg);
+
+        //array 
+        char* fileContents = new char[length + 1];
+        inFile.read(fileContents, length);
+        fileContents[length] = 0;
+
         inFile.close();
+
+        //read lines
+        for (int i = 0; i < length; i++)
+        {
+            cout << fileContents[i];
+        }
+        
     }
 
 }
