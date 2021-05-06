@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "Queue.h";
+#include <string>
 using namespace std; 
 
 
