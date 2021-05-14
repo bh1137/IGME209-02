@@ -49,7 +49,12 @@ string mineKey()
 string readNextCrypto()
 {
 	string crypto = "";
-
+		
+	//File IO
+	cryptoFile.is_open();
+	getline(cryptoFile, crypto);
+	cryptoFile.close();
+	
 	//if statement if string is empty; return empty string
 	if (crypto.empty())
 	{
@@ -65,7 +70,7 @@ double calculateValue()
 
 	// TODO DSA1
 	//adding in the calculation 
-	//coinValue = (chrono::seconds(3) - start_time) * 100;
+	//coinValue = double(chrono::seconds(3).operator- start_time) * 100;
 
 	return coinValue;
 }
@@ -85,6 +90,8 @@ int main()
 	
 	cout << "keys searched: " << cnt << endl;
 	cout << "Wallet value: " << myWallet.GetValue() << endl;
+
+
 
 
 }

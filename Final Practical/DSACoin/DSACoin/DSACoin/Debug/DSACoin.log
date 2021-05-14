@@ -1,2 +1,5 @@
 ﻿  DSACoin.cpp
-  DSACoin.vcxproj -> D:\Profiles\bh1137\Downloads\DSACoin\DSACoin\Debug\DSACoin.exe
+  Wallet.cpp
+C:\Users\Brandon Hawke\Documents\GitHub\IGME209-02\Final Practical\DSACoin\DSACoin\DSACoin\DSACoin.cpp(73,50): error C2677: binary '-': no global operator found which takes type 'std::chrono::steady_clock::time_point' (or there is no acceptable conversion)
+  Generating Code...
+C:\Users\Brandon Hawke\Documents\GitHub\IGME209-02\Final Practical\DSACoin\DSACoin\DSACoin\Wallet.cpp(17,20): warning C4018: '<': signed/unsigned mismatch
